@@ -6,26 +6,42 @@ import './App.css'
 function App() {
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
+  const nasaApiKey =
+    'dPELSeuSkxDP9X5IJdV1Mn9w4MifeGUfYlAzhKVe' || import.meta.env.VITE_NASA
+  const url = `https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}`
+  const simpleURL = `https://api.nasa.gov/planetary/apod?api_key=dPELSeuSkxDP9X5IJdV1Mn9w4MifeGUfYlAzhKVe`
 
-  const url = `https://api.nasa.gov/planetary/apod?${VITE_NASA}`
-  const fetchData = async () => {
-    setLoading(true)
-    const response = await fetch(url)
-    console.log(response)
-  }
+  const jsonPlaceHolder = 'https://jsonplaceholder.typicode.com/todos/1'
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const response = await fetch(jsonPlaceHolder)
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const result = await response.json()
+        setData(result)
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-  useEffect(() => fetchData(), [])
+    fetchData()
+  }, [])
 
   if (loading) {
     return (
       <main>
-        <p>loading</p>
+        {data ? <p>{JSON.stringify(data)}</p> : <p>No data available</p>}
       </main>
     )
   }
   return (
     <main>
-      <p>data</p>
+      {data ? <p>{JSON.stringify(data)}</p> : <p>No data available</p>}
     </main>
   )
 }

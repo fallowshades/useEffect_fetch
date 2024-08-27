@@ -1,14 +1,8 @@
-# useEffect_fetch
+import { useState, useEffect } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
-##
-
-###
-
-#### basic fetch
-
-App.jsx
-
-```jsx
 function App() {
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
@@ -35,8 +29,5 @@ function App() {
     </main>
   )
 }
-```
 
-```.env
-NASA=dPELSeuSkxDP9X5IJdV1Mn9w4MifeGUfYlAzhKVe
-```
+export default App
